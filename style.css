@@ -1,7 +1,9 @@
-.zeroed {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+#main {
+    /* background-color: #333; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #grid-container {
@@ -13,10 +15,20 @@
     flex-wrap: wrap;
     flex: none;
     /* background-color: blue; */
+    border: 1px solid black;
 }
 
 .grid-square {
     margin: 0;
     padding: 0;
-    border: 1px solid black;
+    border: none;
+    box-sizing: border-box;
+    flex: none;
+}
+
+#buttons {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    gap: 10px;
 }

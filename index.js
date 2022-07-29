@@ -1,36 +1,61 @@
 function Square(length) {
-    this.length = length;
+    this.length = length + 'px';
+    this.width = length + 'px';
     this.element = document.createElement('div');
     this.element.setAttribute('class', 'grid-square');
-    this.element.style.length = this.length;
-    this.element.style.height = this.length;
+    this.element.style.width = this.width;
+    this.element.style.height = this.height;
+
+    this.element.addEventListener('mousedown', () => {
+        this.element.style.backgroundColour = currentColor;
+    })
+
+    this.element.addEventListener('mouseover', (e) => {
+        if (mouseDown) {
+            this.element.style.backgroundColor = currentColor;
+        };
+    })
 }
 
-function Grid(numberOfSquares) {
-    this.numberOfSquares = numberOfSquares;
-    // Checks if numberOfSquares has an integer square root
-    while (Math.floor(Math.sqrt(this.numberOfSquares)) !== Math.sqrt(this.numberOfSquares)) {
-        this.numberOfSquares--;
-        if (this.numberOfSquares < 0) {
-            console.log('ERROR');
-            break;
-        }
-    }
+
+function Grid(squaresPerSide) {
+    this.squares = squaresPerSide;
     this.length = 960;
-    console.log(this.numberOfSquares)
-    console.log(Math.sqrt(this.numberOfSquares));
-    
     this.element = document.querySelector('#grid-container');
-    this.element.classList.toggle('zeroed');
-    const squaresPerSide = Math.sqrt(this.numberOfSquares);
-    const squareLength = this.length/Math.sqrt(this.numberOfSquares);
-    for (let i = 0; i < squaresPerSide; i++) {
-        for (let j = 0; j < squaresPerSide; j++) {
-            const newSquare = new Square(squareLength);
+    this.element.style.height = this.length + 'px';
+    this.element.style.width = this.lenght + 'px';
+
+    this.reset = () => {
+        this.element.textContent = '';
+        for (let i = 0; i < this.squares**2; i++) {
+            newSquare = new Square(this.length/this.squares);
             this.element.appendChild(newSquare.element);
         }
     }
 
 }
 
-let test = new Grid(9);
+let mouseDown = false;
+document.addEventListener('mousedown', () => {
+    mouseDown = true;
+    console.log(mouseDown);
+})
+
+document.addEventListener('mouseup', () => {
+    mouseDown = false;
+    console.log(mouseDown);
+})
+
+document.querySelector('#grid-reset').addEventListener('click', () => {
+    test.reset();
+});
+
+
+const colorPicker = document.querySelector('#color-picker');
+let currentColor = '#000';
+colorPicker.addEventListener('change', () => {
+    currentColor = colorPicker.value;
+})
+
+let test = new Grid(10);
+test.reset();
