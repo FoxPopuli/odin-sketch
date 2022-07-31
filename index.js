@@ -1,3 +1,5 @@
+let mouseDown = false;
+
 function Square(length) {
     this.length = length + 'px';
     this.width = length + 'px';
@@ -10,7 +12,7 @@ function Square(length) {
         this.element.style.backgroundColour = currentColor;
     })
 
-    this.element.addEventListener('mouseover', (e) => {
+    this.element.addEventListener('mouseover', () => {
         if (mouseDown) {
             this.element.style.backgroundColor = currentColor;
         };
@@ -19,43 +21,55 @@ function Square(length) {
 
 
 function Grid(squaresPerSide) {
-    this.squares = squaresPerSide;
+    this.squaresPerSide = squaresPerSide;
     this.length = 960;
     this.element = document.querySelector('#grid-container');
     this.element.style.height = this.length + 'px';
     this.element.style.width = this.lenght + 'px';
+    this.element.addEventListener('click', () => {
+        console.log('clicked')
+        mouseDown = !mouseDown;
+    })
 
-    this.reset = () => {
+    this.gen = () => {
         this.element.textContent = '';
-        for (let i = 0; i < this.squares**2; i++) {
-            newSquare = new Square(this.length/this.squares);
+        for (let i = 0; i < this.squaresPerSide**2; i++) {
+            newSquare = new Square(this.length/this.squaresPerSide);
             this.element.appendChild(newSquare.element);
         }
     }
 
+    this.reset = () => {
+        const allSquares = document.querySelectorAll('.grid-square');
+        allSquares.forEach( (square) => {
+            square.style.backgroundColor = 'white';
+        })
+    }
+
 }
 
-let mouseDown = false;
-document.addEventListener('mousedown', () => {
-    mouseDown = true;
-    console.log(mouseDown);
+const randomColorButton = document.querySelector('#random-color');
+randomColorButton.addEventListener('click', () => {
+    currentColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 })
 
-document.addEventListener('mouseup', () => {
-    mouseDown = false;
-    console.log(mouseDown);
-})
-
-document.querySelector('#grid-reset').addEventListener('click', () => {
+const genGridButton = document.querySelector('#gen-grid');
+genGridButton.addEventListener('click', () => {
     const squaresPerSide = document.querySelector('#number-of-squares').value;
     const grid  = new Grid(squaresPerSide)
-    grid.reset();
+    grid.gen();
 });
 
-
-const colorPicker = document.querySelector('#color-picker');
 let currentColor = '#000';
+const colorPicker = document.querySelector('#color-picker');
 colorPicker.addEventListener('change', () => {
     currentColor = colorPicker.value;
+});
+
+const gridResetButton = document.querySelector('#reset')
+gridResetButton.addEventListener('click', () => {
+    grid.reset();
 })
 
+const grid = new Grid(16);
+grid.gen();
