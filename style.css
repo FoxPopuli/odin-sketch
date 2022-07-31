@@ -14,7 +14,6 @@
     display: flex;
     flex-wrap: wrap;
     flex: none;
-    /* background-color: blue; */
     border: 1px solid black;
 }
 
@@ -24,6 +23,7 @@
     border: none;
     box-sizing: border-box;
     flex: none;
+    /* border: 1px solid black; */
 }
 
 #buttons {
@@ -31,4 +31,5 @@
     flex: none;
     justify-content: center;
     gap: 10px;
+    margin: 10px;
 }
