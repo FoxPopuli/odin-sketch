@@ -1,8 +1,8 @@
-let mouseDown = false;
-document.body.addEventListener('click', () => {
+const grid = document.querySelector('#grid-container');
 
+let mouseDown = false;
+grid.addEventListener('click', () => {
     mouseDown = !mouseDown;
-    colorSquare();
 })
 
 function colorSquare() {
@@ -13,7 +13,7 @@ function colorSquare() {
     
 }
 
-const grid = document.querySelector('#grid-container');
+
 const gridHeight = 960;
 function makeGrid(squares) {
     grid.textContent = '';
