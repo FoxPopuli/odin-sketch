@@ -47,7 +47,9 @@ document.addEventListener('mouseup', () => {
 })
 
 document.querySelector('#grid-reset').addEventListener('click', () => {
-    test.reset();
+    const squaresPerSide = document.querySelector('#number-of-squares').value;
+    const grid  = new Grid(squaresPerSide)
+    grid.reset();
 });
 
 
@@ -57,5 +59,3 @@ colorPicker.addEventListener('change', () => {
     currentColor = colorPicker.value;
 })
 
-let test = new Grid(10);
-test.reset();
